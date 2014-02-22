@@ -4,7 +4,7 @@
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
    version="2.5">
-  <display-name>stachelhaut</display-name>
+  <display-name>seesternstachelhaut</display-name>
    <servlet>
       <servlet-name>ringo</servlet-name>
       <servlet-class>org.ringojs.jsgi.JsgiServlet</servlet-class>
