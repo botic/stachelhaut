@@ -23,6 +23,11 @@
          verbose="true"
          dest="WEB-INF/lib/ringo-core.jar"
       />
+      <get
+         src="http://repo1.maven.org/maven2/com/google/appengine/appengine-api-1.0-sdk/1.8.9/appengine-api-1.0-sdk-1.8.9.jar"
+         verbose="true"
+         dest="WEB-INF/lib"
+      />
 
       <!-- Download ringo modules -->
       <get
@@ -50,15 +55,6 @@
       <delete file="WEB-INF/packages/stick.zip"/>
       <delete file="WEB-INF/packages/reinhardt.zip"/>
 
-   </target>
-
-   <target name="getsdk">
-      <mkdir dir="WEB-INF/lib" />
-      <get
-         src="http://repo1.maven.org/maven2/com/google/appengine/appengine-api-1.0-sdk/1.8.9/appengine-api-1.0-sdk-1.8.9.jar"
-         verbose="true"
-         dest="WEB-INF/lib"
-      />
    </target>
 
 </project>
