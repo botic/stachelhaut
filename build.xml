@@ -1,0 +1,57 @@
+<project name="stachelhaut" basedir=".">
+   <description>Load dependencies</description>
+
+   <target name="deps">
+      <mkdir dir="WEB-INF/lib" />
+      <get
+         src="http://repo1.maven.org/maven2/org/jruby/extras/jaffl/0.5.12/jaffl-0.5.12.jar"
+         verbose="true"
+         dest="WEB-INF/lib"
+      />
+      <get
+         src="http://repo1.maven.org/maven2/org/jruby/ext/posix/jnr-posix/1.1.9/jnr-posix-1.1.9.jar"
+         verbose="true"
+         dest="WEB-INF/lib"
+      />
+      <get
+         src="https://oss.sonatype.org/content/repositories/snapshots/org/mozilla/rhino/1.7R5-SNAPSHOT/rhino-1.7R5-20120629.144839-4.jar"
+         verbose="true"
+         dest="WEB-INF/lib/rhino-1.7R5-SNAPSHOT.jar"
+      />
+      <get
+         src="https://oss.sonatype.org/service/local/repositories/snapshots/content/org/ringojs/ringojs/0.10.1-SNAPSHOT/ringojs-0.10.1-20131220.124404-1.jar"
+         verbose="true"
+         dest="WEB-INF/lib/ringo-core.jar"
+      />
+
+      <!-- Download ringo modules -->
+      <get
+         src="http://hoffburg.at/dependencies/ringojs-0.10-modules.zip"
+         verbose="true"
+         dest="WEB-INF/modules.zip"
+      />
+      <unzip src="WEB-INF/modules.zip" dest="WEB-INF/modules"/>
+      <delete file="WEB-INF/modules.zip"/>
+
+      <!-- Download packages -->
+      <mkdir dir="WEB-INF/packages" />
+      <get
+         src="http://packages.ringojs.org/download/stick/latest"
+         verbose="true"
+         dest="WEB-INF/packages/stick.zip"
+      />
+      <get
+         src="http://packages.ringojs.org/download/reinhardt/latest"
+         verbose="true"
+         dest="WEB-INF/packages/reinhardt.zip"
+      />
+      <unzip src="WEB-INF/packages/stick.zip" dest="WEB-INF/packages/stick"/>
+      <unzip src="WEB-INF/packages/reinhardt.zip" dest="WEB-INF/packages/reinhardt"/>
+      <delete file="WEB-INF/packages/stick.zip"/>
+      <delete file="WEB-INF/packages/reinhardt.zip"/>
+
+   </target>
+
+
+
+</project>

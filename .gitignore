@@ -1,0 +1,6 @@
+# The following directories will be created by the
+# ant task 'deps'
+
+WEB-INF/lib/
+WEB-INF/modules/
+WEB-INF/packages/

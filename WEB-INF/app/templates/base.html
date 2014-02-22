@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+   <title>{{ title }}</title>
+
+   <link rel="stylesheet" href="/static/normalize.css" />
+   <link rel="stylesheet" href="/static/foundation.min.css" />
+   <link rel="stylesheet" href="/static/stachelhaut.css" />
+
+   <script src="/static/modernizr.js"></script>
+
+   <!-- Favicon by http://www.robinweatherall.eu -->
+   <link rel="shortcut icon" href="/static/favicon.ico">
+
+   <meta name="format-detection" content="telephone=no" />
+</head>
+<body>
+
+   <header>
+      <div class="row">
+         <h1 class="medium-12 columns">Bautagebuch &ndash; Wohnprojekt Seestern Aspern</h1>
+      </div>
+      <div class="row">
+         <div class="large-12 columns">
+         {% block breadcrumbs %}{% endblock%}
+         </div>
+      </div>
+   </header>
+
+   <main>
+      {% block main %}{% endblock%}
+   </main>
+
+   <footer class="row">
+      <div class="large-12 columns">
+         <p>Wohnprojekt »Seestern Aspern« | <script>document.write('<'+'a'+' '+'h'+'r'+'e'+'f'+'='+"'"+'m'+'a'+'i'+'l'+'t'+'o'+'&'+'#'+'5'+'8'+';'+'&'+'#'+'3'+'7'+';'+
+            '7'+'3'+'e'+'&'+'#'+'1'+'0'+'1'+';'+'%'+'7'+'&'+'#'+'5'+'1'+';'+'t'+'e'+'%'+'7'+'2'+'n'+'%'+'4'+'&'+
+            '#'+'4'+'8'+';'+'&'+'#'+'1'+'1'+'2'+';'+'%'+'&'+'#'+'5'+'4'+';'+'&'+'#'+'4'+'9'+';'+'&'+'#'+'1'+'1'+
+            '4'+';'+'%'+'&'+'#'+'5'+'5'+';'+'1'+'%'+'2'+'E'+'&'+'#'+'9'+'7'+';'+'&'+'#'+'1'+'1'+'6'+';'+"'"+'>'+
+            '&'+'#'+'1'+'1'+'5'+';'+'e'+'&'+'#'+'1'+'0'+'1'+';'+'&'+'#'+'1'+'1'+'5'+';'+'t'+'e'+'r'+'n'+'&'+'#'+
+            '6'+'4'+';'+'p'+'a'+'r'+'q'+'&'+'#'+'4'+'6'+';'+'a'+'t'+'<'+'/'+'a'+'>');</script> | <abbr title="Zentrale Vereinsregister Zahl">ZVR</abbr>: 021082600 | Heumühlgasse 2a/3 | 1040 Wien | <a href="http://www.parq.at/parqStatic/uploads/33220-43442-29800-58163/Seestern_final.pdf">Statuten</a></p>
+      </div>
+   </footer>
+
+   {% block modals %}{% endblock %}
+
+   <script src="/static/foundation.min.js"></script>
+   <script> $(document).foundation(); </script>
+
+</body>
+</html>
