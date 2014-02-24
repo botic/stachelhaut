@@ -4,3 +4,6 @@
 WEB-INF/lib/
 WEB-INF/modules/
 WEB-INF/packages/
+
+# local app engine temp files
+WEB-INF/appengine-generated/

@@ -1,1 +1,29 @@
 {% extends "base.html" %}
+
+{% block main %}
+
+{% if stories.length > 0 %}
+
+   {% for story in stories %}
+   <div class="row">
+      <div class="large-12 columns">
+         <h2>{{ story.title }}</h2>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="large-12 columns">
+         <p>{{ story.text }}</p>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="large-12 columns">
+         <p>{{ story.creator }} &ndash;  {{ story.created | date:"dd.MM.yyyy" }}</p>
+      </div>
+   </div>
+   {% endfor %}
+
+{% endif %}
+
+{% endblock %}

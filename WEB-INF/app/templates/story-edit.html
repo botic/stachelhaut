@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block main %}
+<form method="POST" action="/stories/{{ story.id }}/edit">
+
+   <div class="row">
+      <div class="large-12 columns">
+         <label>
+            Title
+            <input type="text" name="title" value="{{ story.title }}" />
+         </label>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="large-12 columns">
+         <label>
+            Text
+            <textarea name="text">{{ story.text }}</textarea>
+         </label>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="large-12 columns">
+         <input type="submit" class="button"value="Save Story" />
+      </div>
+   </div>
+
+</form>
+{% endblock %}
