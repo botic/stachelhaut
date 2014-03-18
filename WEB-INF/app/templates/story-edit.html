@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block main %}
-<form method="POST" action="/stories/{{ story.id }}/edit">
+<form method="POST" action="/stories/{{ story.id }}/edit" id="edit-story-form">
 
    <div class="row">
       <div class="large-12 columns">
@@ -15,8 +15,17 @@
    <div class="row">
       <div class="large-12 columns">
          <label>
+            Date
+            <input type="text" name="posted" id="datepicker" value="12-10-2013" />
+         </label>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="large-12 columns">
+         <label>
             Text
-            <textarea name="text">{{ story.text }}</textarea>
+            <textarea name="text" class="textEditor">{{ story.text }}</textarea>
          </label>
       </div>
    </div>

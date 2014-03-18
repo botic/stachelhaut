@@ -7,3 +7,7 @@ WEB-INF/packages/
 
 # local app engine temp files
 WEB-INF/appengine-generated/
+
+*.sublime-project
+
+*.sublime-workspace

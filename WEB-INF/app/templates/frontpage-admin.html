@@ -12,13 +12,17 @@
    <table style="width: 100%;">
       <thead>
          <tr>
+            <th width="150">Created</th>
+            <th width="120">Posted</th>
             <th>Title</th>
-            <th width="300">Author</th>
+            <th width="250">Author</th>
          </tr>
       </thead>
       <tbody>
       {% for story in stories %}
          <tr>
+            <td>{{ story.created | date:"dd-MM-yyyy HH:mm" }}</td>
+            <td>{{ story.posted | date:"dd-MM-yyyy" }}</td>
             <td><a href="/stories/{{ story.id }}">{{ story.title }}</a></td>
             <td>{{ story.creator }}</td>
          </tr>

@@ -6,20 +6,11 @@
 
    {% for story in stories %}
    <div class="row">
-      <div class="large-12 columns">
-         <h2>{{ story.title }}</h2>
-      </div>
-   </div>
-
-   <div class="row">
-      <div class="large-12 columns">
-         <p>{{ story.text }}</p>
-      </div>
-   </div>
-
-   <div class="row">
-      <div class="large-12 columns">
-         <p>{{ story.creator }} &ndash;  {{ story.created | date:"dd.MM.yyyy" }}</p>
+      <div class="small-12 columns">
+         <a href="{{ story | href }}">
+            <span class="dayIndicator">Tag<br>{{ story.posted | dateDiff }}</span>
+            <h2>{{ story.title }}</h2>
+         </a>
       </div>
    </div>
    {% endfor %}
