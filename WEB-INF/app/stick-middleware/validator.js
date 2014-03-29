@@ -88,7 +88,6 @@ var Validator = exports.Validator = function(objectToValidate) {
    };
 
    Checker.prototype.minLength = function(min, message) {
-      java.lang.System.out.println("this.value  -->  " + this.value);
       return this.checkResult((this.value.length >= min), message);
    };
 
