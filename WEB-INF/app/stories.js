@@ -36,15 +36,17 @@ app.get("/add", function (req) {
 app.post("/add", function (req) {
    var credentials = appengine.getCredentials(req);
    if (credentials.isLoggedIn) {
-         req.validatePost("title").minLength(3, "Please specify a title!").maxLength(500, "Title is too long! Limit is 500 characters.");
-         req.validatePost("text").maxLength(100000, "Text is too long! Limit is 100.000 characters.");
-         req.validatePost("posted").matches(dateRegex, "Invalid date!");
+         req.validatePost("title").isDefined("Title is missing!").minLength(3, "Please specify a title!").maxLength(500, "Title is too long! Limit is 500 characters.");
+         req.validatePost("teaser").isDefined("Teaser missing!").maxLength(100000, "Teaser is too long! Limit is 100.000 characters.");
+         req.validatePost("text").isDefined("Text missing!").maxLength(100000, "Text is too long! Limit is 100.000 characters.");
+         req.validatePost("posted").isDefined("Date missing!").matches(dateRegex, "Invalid date!");
 
          if (req.isValid()) {
             var datastore = DatastoreServiceFactory.getDatastoreService();
             var story = new Entity("Story");
             story.setProperty("title", req.postParams.title);
             story.setProperty("titleLowerCase", req.postParams.title.toLowerCase());
+            story.setUnindexedProperty("teaser", new Text(req.postParams.teaser));
             story.setUnindexedProperty("text", new Text(req.postParams.text));
             story.setProperty("posted", dateFormat.parse(req.postParams.posted));
             story.setProperty("created", new java.util.Date());
@@ -124,11 +126,12 @@ app.post("/:id/edit", function (req, id) {
 
    var credentials = appengine.getCredentials(req);
    if (credentials.isLoggedIn) {
-      req.validatePost("title").minLength(3, "Please specify a title!").maxLength(500, "Title is too long! Limit is 500 characters.");
-      req.validatePost("text").maxLength(100000, "Text is too long! Limit is 100.000 characters.");
-      req.validatePost("posted").matches(dateRegex, "Invalid date!");
+      req.validate("title").isDefined("Title is missing!").minLength(3, "Please specify a title!").maxLength(500, "Title is too long! Limit is 500 characters.");
+      req.validate("teaser").isDefined("Teaser missing!").maxLength(100000, "Teaser is too long! Limit is 100.000 characters.");
+      req.validate("text").isDefined("Text missing!").maxLength(100000, "Text is too long! Limit is 100.000 characters.");
+      req.validate("posted").isDefined("Date missing!").matches(dateRegex, "Invalid date!");
 
-      if (req.isValid()) {
+      if (!req.hasErrors()) {
          var datastore = DatastoreServiceFactory.getDatastoreService();
          var storyEntity;
          try {
@@ -140,11 +143,14 @@ app.post("/:id/edit", function (req, id) {
          }
          storyEntity.setProperty("title", req.postParams.title);
          storyEntity.setProperty("titleLowerCase", req.postParams.title.toLowerCase());
+         storyEntity.setUnindexedProperty("teaser", new Text(req.postParams.teaser));
          storyEntity.setUnindexedProperty("text", new Text(req.postParams.text));
          storyEntity.setProperty("posted", dateFormat.parse(req.postParams.posted));
          datastore.put(storyEntity);
 
          return response.redirect("/stories/" + storyEntity.getKey().getId());
+      } else {
+         return response.bad().html("Error in request!");
       }
    }
 

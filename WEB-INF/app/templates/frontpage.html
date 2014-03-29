@@ -5,11 +5,14 @@
 {% if stories.length > 0 %}
 
    {% for story in stories %}
-   <div class="row">
+   <div class="row frontstory">
       <div class="small-12 columns">
          <a href="{{ story | href }}">
             <span class="dayIndicator">Tag<br>{{ story.posted | dateDiff }}</span>
-            <h2>{{ story.title }}</h2>
+            <div>
+               <h2>{{ story.title }}</h2>
+               <p>{{ story.teaser }}</p>
+            </div>
          </a>
       </div>
    </div>

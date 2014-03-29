@@ -16,7 +16,16 @@
       <div class="large-12 columns">
          <label>
             Date
-            <input type="text" name="posted" id="datepicker" value="12-10-2013" />
+            <input type="text" name="posted" id="datepicker" value="{{ story.posted | date:'dd-MM-yyyy' }}" />
+         </label>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="large-12 columns">
+         <label>
+            Teaser
+            <textarea name="teaser" class="teaserEditor">{{ story.teaser }}</textarea>
          </label>
       </div>
    </div>
