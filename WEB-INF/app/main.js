@@ -31,7 +31,7 @@ app.get("/", function (req) {
    // Read out all existing stories
    var datastore = DatastoreServiceFactory.getDatastoreService();
    var stories = appengine.mapEntityList(
-      datastore.prepare((new Query("Story")).addSort("created", Query.SortDirection.ASCENDING))
+      datastore.prepare((new Query("Story")).addSort("posted", Query.SortDirection.DESCENDING))
       .asList(FetchOptions.Builder.withLimit(10))
    );
 

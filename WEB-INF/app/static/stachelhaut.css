@@ -1,4 +1,8 @@
-h1 {
+body {
+   background: url('noise.80-80-5.png');
+}
+
+h1, h2, h3, h4, h5, h6 {
    font-family: 'Kotta One', serif;
 }
 
@@ -12,20 +16,40 @@ h1 {
    box-sizing: border-box;
 
    font-size: 0.938rem;
-   line-height: 1.250rem;
+   line-height: 1.2rem;
 
    font-weight: bold;
    border-radius: 50% 50%;
-   background: #ccc;
-   height: 75px;
-   width: 75px;
+   background: #0A6362;
+   color: #f6f6f6;
+   height: 65px;
+   width: 65px;
    text-align: center;
-   padding-top: 17px;
+   padding-top: 15px;
    display: block;
-   margin-right: 20px;
-   float: left;
+
+   position: relative;
+   top: 10px;
+}
+
+.dayIndicatorWrapper {
+   display: inline-block;
+   vertical-align: top;
+   width: 80px;
+}
+
+.textWrapper {
+   display: inline-block;
+   width: 70%;
+   width: -webkit-calc(100% - 85px);
+   width: -moz-calc(100% - 85px);
+   width: calc(100% - 85px);
 }
 
 .frontstory {
    margin-bottom: 1.5rem;
+}
+
+a .teaser {
+   color: #000;
 }

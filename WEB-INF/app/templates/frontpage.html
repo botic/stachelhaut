@@ -2,22 +2,32 @@
 
 {% block main %}
 
-{% if stories.length > 0 %}
+<div class="row">
 
-   {% for story in stories %}
-   <div class="row frontstory">
-      <div class="small-12 columns">
+   <div class="large-9 medium-8 columns">
+   {% if stories.length > 0 %}
+
+      {% for story in stories %}
+      <div class="frontstory">
          <a href="{{ story | href }}">
-            <span class="dayIndicator">Tag<br>{{ story.posted | dateDiff }}</span>
-            <div>
-               <h2>{{ story.title }}</h2>
-               <p>{{ story.teaser }}</p>
+            <div class="dayIndicatorWrapper">
+               <span class="dayIndicator">Tag<br>{{ story.posted | dateDiff }}</span>
+            </div>
+            <div class="textWrapper">
+                  <h2>{{ story.title }}</h2>
+                  <div class="teaser">{{ story.teaser | markdown }}</div>
             </div>
          </a>
       </div>
-   </div>
-   {% endfor %}
+      {% endfor %}
 
-{% endif %}
+   {% endif %}
+   </div>
+
+   <div class="large-3 medium-4 columns">
+      <div style="background: #ccc; height: 200px;">Buttons</div>
+   </div>
+
+</div>
 
 {% endblock %}

@@ -23,7 +23,7 @@
          <tr>
             <td>{{ story.created | date:"dd-MM-yyyy HH:mm" }}</td>
             <td>{{ story.posted | date:"dd-MM-yyyy" }}</td>
-            <td><a href="/stories/{{ story.id }}">{{ story.title }}</a></td>
+            <td><a href="/stories/{{ story.id }}/edit">{{ story.title }}</a></td>
             <td>{{ story.creator }}</td>
          </tr>
       {% endfor %}

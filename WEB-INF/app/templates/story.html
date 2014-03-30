@@ -3,16 +3,30 @@
 {% block main %}
 
 <div class="row">
-   <div class="large-12 columns">
-      <span class="dayIndicator">Tag<br>{{ story.posted | dateDiff }}</span>
-      <h1>{{ story.title }}</h1>
-   </div>
-</div>
 
-<div class="row">
-   <div class="large-12 columns">
-      {{ story.text | markdown }}
+   <div class="large-9 columns">
+
+      <div class="dayIndicatorWrapper">
+         <span class="dayIndicator">Tag<br>{{ story.posted | dateDiff }}</span>
+      </div>
+
+      <div class="textWrapper">
+
+         <h1>{{ story.title }}</h1>
+         <div class="teaser">
+            {{ story.teaser | markdown }}
+         </div>
+         <div class="fulltext">
+            {{ story.text | markdown }}
+         </div>
+
+      </div>
    </div>
+
+      <div class="large-3 columns">
+      <div style="background: #ccc; height: 200px;">Buttons</div>
+   </div>
+
 </div>
 
 {% endblock %}
