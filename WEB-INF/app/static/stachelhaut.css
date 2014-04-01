@@ -1,5 +1,10 @@
 body {
    background: url('noise.80-80-5.png');
+   padding-bottom: 120px;
+}
+
+form {
+   margin: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -13,7 +18,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 header h1 {
-   padding: 2rem 0;
+   padding: 3rem 0 3.75rem 10.5rem;
+   margin-left: 20px;
+   font-size: 3rem;
+   background: url('seestern-logo-transparent.png') 0rem 0.75rem no-repeat;
+   background-size: 9rem 9rem;
 }
 
 footer {
@@ -22,6 +31,7 @@ footer {
 }
 
 footer p {
+   padding: 3rem 0 1rem 0;
    color: #999;
    font-size: 0.75rem;
    line-height: 0.938rem;
@@ -62,27 +72,54 @@ footer abbr {
 .dayIndicatorWrapper {
    display: inline-block;
    vertical-align: top;
-   width: 80px;
+   width: 90px;
 }
 
 .textWrapper {
    display: inline-block;
-   width: 70%;
-   width: -webkit-calc(100% - 85px);
-   width: -moz-calc(100% - 85px);
-   width: calc(100% - 85px);
+   width: 60%;
+   width: -webkit-calc(100% - 120px);
+   width: -moz-calc(100% - 120px);
+   width: calc(100% - 120px);
 }
 
-.frontstory {
-   margin-bottom: 1.5rem;
+.frontStory {
+   margin-bottom: 3rem;
+}
+
+.frontStory,
+.storyDetail {
+   margin-left: 20px;
+}
+
+.frontStory h2 {
+   margin: 16px 0 0 0;
+   line-height: 1.2em;
+}
+
+.frontStory .teaser p {
+   margin: 4px 0 0 0;
+   line-height: 1.4rem;
+}
+
+.storyDetail {
+   min-height: 280px;
 }
 
 a .teaser {
    color: #000;
 }
 
+.buttonArea {
+   padding-top: 15px;
+}
+
 .buttonArea a {
    display: block;
-   margin-bottom: 14px;
+   margin-bottom: 16px;
    color: #000;
+}
+
+.buttonArea a.button {
+   color: #fff;
 }

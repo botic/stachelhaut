@@ -51,13 +51,16 @@ app.post("/add", function (req) {
          story.setProperty("posted", dateFormat.parse(req.postParams.posted));
          story.setProperty("created", new java.util.Date());
          story.setProperty("creator", credentials.currentUser);
+         story.setProperty("deleted", false);
          datastore.put(story);
 
          return response.redirect("/stories/" + story.getKey().getId());
+      } else {
+         return response.bad().html("Error in request!<hr>" + req.errorMessages().join("<br>"));
       }
    }
 
-   return response.redirect(credentials.loginURI);
+   return response.redirect("/admin");
 });
 
 app.get("/:id", function(req, id) {
@@ -76,6 +79,11 @@ app.get("/:id", function(req, id) {
    }
 
    var story = appengine.mapProperties(storyEntity);
+
+   if (story.deleted) {
+      return response.notFound().html("<h1>Story not found</h1>");
+   }
+
    var credentials = appengine.getCredentials(req);
    if (credentials.isLoggedIn) {
       return response.html(env.getTemplate("story.html").render({
@@ -107,11 +115,17 @@ app.get("/:id/edit", function(req, id) {
    }
 
    var story = appengine.mapProperties(storyEntity);
+
+   if (story.deleted) {
+      return response.notFound().html("<h1>Story not found</h1>");
+   }
+
    var credentials = appengine.getCredentials(req);
    if (credentials.isLoggedIn) {
       return response.html(env.getTemplate("story-edit.html").render({
          title: story.title + " - Wohnprojekt Seestern Aspern",
          user: credentials.currentUser,
+         isAdmin: credentials.isAdmin,
          story: story
       }));
    } else {
@@ -141,6 +155,11 @@ app.post("/:id/edit", function (req, id) {
          } catch (e) {
             return response.error().html("<h1>Internal error</h1>");
          }
+
+         if (storyEntity.getProperty("deleted")) {
+            return response.notFound().html("<h1>Story not found</h1>");
+         }
+
          storyEntity.setProperty("title", req.postParams.title);
          storyEntity.setProperty("titleLowerCase", req.postParams.title.toLowerCase());
          storyEntity.setUnindexedProperty("teaser", new Text(req.postParams.teaser.replace(/(\r\n|\n|\r)/gm," ")));
@@ -150,9 +169,67 @@ app.post("/:id/edit", function (req, id) {
 
          return response.redirect("/stories/" + storyEntity.getKey().getId());
       } else {
-         return response.bad().html("Error in request!");
+         return response.bad().html("Error in request!<hr>" + req.errorMessages().join("<br>"));
       }
    }
 
-   return response.redirect(credentials.loginURI);
+   return response.redirect("/admin");
+});
+
+app.get("/:id/delete", function(req, id) {
+   if (!appengine.isValidId(id)) {
+      return response.forbidden().html("<h1>Forbidden</h1>");
+   }
+
+   var datastore = DatastoreServiceFactory.getDatastoreService();
+   var storyEntity;
+   try {
+      storyEntity = datastore.get(KeyFactory.createKey("Story", java.lang.Long.parseLong(id)));
+   } catch(e if e.javaException instanceof EntityNotFoundException) {
+      return response.notFound().html("<h1>Story not found</h1>");
+   } catch (e) {
+      return response.error().html("<h1>Internal error</h1>");
+   }
+
+   if (storyEntity.getProperty("deleted")) {
+      return response.notFound().html("<h1>Story not found</h1>");
+   }
+
+   var story = appengine.mapProperties(storyEntity);
+   var credentials = appengine.getCredentials(req);
+   if (credentials.isLoggedIn && credentials.isAdmin) {
+      return response.html(env.getTemplate("story-delete.html").render({
+         title: story.title + " - Wohnprojekt Seestern Aspern",
+         user: credentials.currentUser,
+         isAdmin: credentials.isAdmin,
+         story: story
+      }));
+   } else {
+      return response.redirect("/stories/" + id);
+   }
+});
+
+app.post("/:id/delete", function(req, id) {
+   if (!appengine.isValidId(id)) {
+      return response.forbidden().html("<h1>Forbidden</h1>");
+   }
+
+   var datastore = DatastoreServiceFactory.getDatastoreService();
+   var storyEntity;
+   try {
+      storyEntity = datastore.get(KeyFactory.createKey("Story", java.lang.Long.parseLong(id)));
+   } catch(e if e.javaException instanceof EntityNotFoundException) {
+      return response.notFound().html("<h1>Story not found</h1>");
+   } catch (e) {
+      return response.error().html("<h1>Internal error</h1>");
+   }
+
+   if (storyEntity.getProperty("deleted")) {
+      return response.notFound().html("<h1>Story not found</h1>");
+   } else {
+      storyEntity.setProperty("deleted", true);
+      datastore.put(storyEntity);
+   }
+
+   return response.redirect("/admin");
 });

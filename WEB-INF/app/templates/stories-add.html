@@ -4,7 +4,7 @@
 <form method="POST" action="/stories/add" id="add-story-form">
 
    <div class="row">
-      <div class="large-12 columns">
+      <div class="large-8 large-offset-2 columns">
          <label>
             Title
             <input type="text" name="title" required/>
@@ -13,7 +13,7 @@
    </div>
 
    <div class="row">
-      <div class="large-12 columns">
+      <div class="large-8 large-offset-2 columns">
          <label>
             Date
             <input type="text" name="posted" id="datepicker" value="{{ now | date:"dd-MM-YYYY" }}" />
@@ -22,7 +22,7 @@
    </div>
 
    <div class="row">
-      <div class="large-12 columns">
+      <div class="large-8 large-offset-2 columns">
          <label>
             Teaser
             <textarea name="teaser" class="teaserEditor"></textarea>
@@ -31,7 +31,7 @@
    </div>
 
    <div class="row">
-      <div class="large-12 columns">
+      <div class="large-8 large-offset-2 columns">
          <label>
             Text
             <textarea name="text" class="textEditor"></textarea>
@@ -40,8 +40,8 @@
    </div>
 
    <div class="row">
-      <div class="large-12 columns">
-         <input type="submit" class="button"value="Post Story" />
+      <div class="large-8 large-offset-2 columns">
+         <input type="submit" class="button"value="Publish Story" />
       </div>
    </div>
 

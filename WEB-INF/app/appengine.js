@@ -2,7 +2,7 @@ importPackage(com.google.appengine.api.users);
 
 var log = require("ringo/logging").getLogger(module.id);
 
-var getCredentials = exports.getCredentials = function(req) {
+var getCredentials = exports.getCredentials = function(req, loginURI, logoutURI) {
    var requestURI = req.env.servletRequest.getRequestURI();
    var userService = UserServiceFactory.getUserService();
    var principal = req.env.servletRequest.getUserPrincipal();
@@ -19,8 +19,8 @@ var getCredentials = exports.getCredentials = function(req) {
       isAdmin: !isLoggedIn ? false : userService.isUserAdmin(),
       currentUser: !isLoggedIn ? null : userService.getCurrentUser(),
       principal: !isLoggedIn ? null : principal,
-      logoutURI: userService.createLogoutURL(requestURI),
-      loginURI: userService.createLoginURL(requestURI)
+      loginURI: userService.createLoginURL(loginURI || requestURI),
+      logoutURI: userService.createLogoutURL(logoutURI || requestURI)
    };
 };
 

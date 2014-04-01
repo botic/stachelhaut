@@ -3,7 +3,14 @@
 {% block main %}
 
 <div class="row">
-   <div class="large-12 columns"><h2>Admin</h2></div>
+   <div class="large-12 columns"><h2>Admin Page</h2></div>
+</div>
+
+<div class="row">
+   <div class="large-12 columns">
+      <a href="/stories/add" class="button tiny radius">Add Story</a>
+      <a href="{{ logoutURI }}" class="button tiny secondary radius" style="margin-left: 15px;">Logout</a>
+   </div>
 </div>
 
 {% if stories.length > 0 %}
@@ -23,7 +30,9 @@
          <tr>
             <td>{{ story.created | date:"dd-MM-yyyy HH:mm" }}</td>
             <td>{{ story.posted | date:"dd-MM-yyyy" }}</td>
-            <td><a href="/stories/{{ story.id }}/edit">{{ story.title }}</a></td>
+            <td>
+               <a href="/stories/{{ story.id }}/edit">{{ story.title }}</a>
+            </td>
             <td>{{ story.creator }}</td>
          </tr>
       {% endfor %}

@@ -6,26 +6,37 @@
 
    <div class="large-9 columns">
 
-      <div class="dayIndicatorWrapper">
-         <span class="dayIndicator">Tag<br>{{ story.posted | dateDiff }}</span>
-      </div>
-
-      <div class="textWrapper">
-
-         <h1>{{ story.title }}</h1>
-         <div class="teaser">
-            {{ story.teaser | markdown }}
-         </div>
-         <div class="fulltext">
-            {{ story.text | markdown }}
+      <div class="storyDetail">
+         <div class="dayIndicatorWrapper">
+            <span class="dayIndicator">Tag<br>{{ story.posted | dateDiff }}</span>
          </div>
 
+         <div class="textWrapper">
+
+            <h1>
+               {{ story.title }}
+
+               {% if user %}
+               <a href="/stories/{{ story.id }}/edit" class="button tiny radius" style="width: auto; position: relative; top: -10px; margin-left: 15px;">
+                  Edit Story
+               </a>
+               {% endif %}
+
+            </h1>
+
+            <div class="teaser">
+               {{ story.teaser | markdown }}
+            </div>
+
+            <div class="fulltext">
+               {{ story.text | markdown }}
+            </div>
+
+         </div>
       </div>
    </div>
 
-      <div class="large-3 columns">
-      <div style="background: #ccc; height: 200px;">Buttons</div>
-   </div>
+   {% include "buttons.html" %}
 
 </div>
 
