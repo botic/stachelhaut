@@ -23,38 +23,37 @@ app.mount("/stories", module.resolve("./stories"));
 
 app.get("/", function (req) {
    var credentials = appengine.getCredentials(req);
-   if (credentials.isLoggedIn) {
-   } else {
-
-   }
 
    // Read out all existing stories
    var datastore = DatastoreServiceFactory.getDatastoreService();
    var stories = appengine.mapEntityList(
-      datastore.prepare((new Query("Story")).addSort("created", Query.SortDirection.ASCENDING))
+      datastore.prepare((new Query("Story")).addFilter("deleted", Query.FilterOperator.EQUAL, false).addSort("posted", Query.SortDirection.DESCENDING))
       .asList(FetchOptions.Builder.withLimit(10))
    );
 
    return response.html(env.getTemplate("frontpage.html").render({
       title: "Bautagebuch - Wohnprojekt Seestern Aspern",
-      stories: stories
+      stories: stories,
+      user: credentials.currentUser,
    }));
 });
 
 app.get("/admin", function (req) {
-   var credentials = appengine.getCredentials(req);
+   var credentials = appengine.getCredentials(req, "/admin", "/");
    if (credentials.isLoggedIn) {
 
       // Read out all existing stories
       var datastore = DatastoreServiceFactory.getDatastoreService();
       var stories = appengine.mapEntityList(
-         datastore.prepare((new Query("Story")).addSort("titleLowerCase", Query.SortDirection.ASCENDING))
+         datastore.prepare((new Query("Story")).addFilter("deleted", Query.FilterOperator.EQUAL, false).addSort("titleLowerCase", Query.SortDirection.ASCENDING))
          .asList(FetchOptions.Builder.withDefaults())
       );
 
       return response.html(env.getTemplate("frontpage-admin.html").render({
          title: "Bautagebuch - Wohnprojekt Seestern Aspern",
          user: credentials.currentUser,
+         isAdmin: credentials.isAdmin,
+         logoutURI: credentials.logoutURI,
          stories: stories
       }));
    }

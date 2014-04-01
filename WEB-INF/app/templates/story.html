@@ -3,16 +3,41 @@
 {% block main %}
 
 <div class="row">
-   <div class="large-12 columns">
-      <span class="dayIndicator">Tag<br>{{ story.posted | dateDiff }}</span>
-      <h1>{{ story.title }}</h1>
-   </div>
-</div>
 
-<div class="row">
-   <div class="large-12 columns">
-      {{ story.text | markdown }}
+   <div class="large-9 columns">
+
+      <div class="storyDetail">
+         <div class="dayIndicatorWrapper">
+            <span class="dayIndicator">Tag<br>{{ story.posted | dateDiff }}</span>
+         </div>
+
+         <div class="textWrapper">
+
+            <h1>
+               {{ story.title }}
+
+               {% if user %}
+               <a href="/stories/{{ story.id }}/edit" class="button tiny radius" style="width: auto; position: relative; top: -10px; margin-left: 15px;">
+                  Edit Story
+               </a>
+               {% endif %}
+
+            </h1>
+
+            <div class="teaser">
+               {{ story.teaser | markdown }}
+            </div>
+
+            <div class="fulltext">
+               {{ story.text | markdown }}
+            </div>
+
+         </div>
+      </div>
    </div>
+
+   {% include "buttons.html" %}
+
 </div>
 
 {% endblock %}

@@ -4,7 +4,7 @@
 <form method="POST" action="/stories/{{ story.id }}/edit" id="edit-story-form">
 
    <div class="row">
-      <div class="large-12 columns">
+      <div class="large-8 large-offset-2 columns">
          <label>
             Title
             <input type="text" name="title" value="{{ story.title }}" />
@@ -13,16 +13,25 @@
    </div>
 
    <div class="row">
-      <div class="large-12 columns">
+      <div class="large-8 large-offset-2 columns">
          <label>
             Date
-            <input type="text" name="posted" id="datepicker" value="12-10-2013" />
+            <input type="text" name="posted" id="datepicker" value="{{ story.posted | date:'dd-MM-yyyy' }}" />
          </label>
       </div>
    </div>
 
    <div class="row">
-      <div class="large-12 columns">
+      <div class="large-8 large-offset-2 columns">
+         <label>
+            Teaser
+            <textarea name="teaser" class="teaserEditor">{{ story.teaser }}</textarea>
+         </label>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="large-8 large-offset-2 columns">
          <label>
             Text
             <textarea name="text" class="textEditor">{{ story.text }}</textarea>
@@ -31,8 +40,15 @@
    </div>
 
    <div class="row">
-      <div class="large-12 columns">
+      <div class="large-8 large-offset-2 columns">
          <input type="submit" class="button"value="Save Story" />
+
+         {% if isAdmin %}
+         <a href="/stories/{{ story.id }}/delete" class="button tiny alert radius" style="float: right;">
+            Delete
+         </a>
+         {% endif %}
+
       </div>
    </div>
 

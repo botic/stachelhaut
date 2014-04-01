@@ -1,5 +1,46 @@
-h1 {
+body {
+   background: url('noise.80-80-5.png');
+   padding-bottom: 120px;
+}
+
+form {
+   margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
    font-family: 'Kotta One', serif;
+}
+
+.row {
+   background: #fff;
+   border-left: 1px solid #ccc;
+   border-right: 1px solid #ccc;
+}
+
+header h1 {
+   padding: 3rem 0 3.75rem 10.5rem;
+   margin-left: 20px;
+   font-size: 3rem;
+   background: url('seestern-logo-transparent.png') 0rem 0.75rem no-repeat;
+   background-size: 9rem 9rem;
+}
+
+footer {
+   border-bottom: 1px solid #ccc;
+   border-radius: 0px 0px 8px 8px;
+}
+
+footer p {
+   padding: 3rem 0 1rem 0;
+   color: #999;
+   font-size: 0.75rem;
+   line-height: 0.938rem;
+   text-align: center;
+}
+
+footer a,
+footer abbr {
+   color: #999 !important;
 }
 
 .textEditor {
@@ -12,16 +53,73 @@ h1 {
    box-sizing: border-box;
 
    font-size: 0.938rem;
-   line-height: 1.250rem;
+   line-height: 1.2rem;
 
    font-weight: bold;
    border-radius: 50% 50%;
-   background: #ccc;
-   height: 75px;
-   width: 75px;
+   background: #0A6362;
+   color: #f6f6f6;
+   height: 65px;
+   width: 65px;
    text-align: center;
-   padding-top: 17px;
+   padding-top: 15px;
    display: block;
-   margin-right: 20px;
-   float: left;
+
+   position: relative;
+   top: 10px;
+}
+
+.dayIndicatorWrapper {
+   display: inline-block;
+   vertical-align: top;
+   width: 90px;
+}
+
+.textWrapper {
+   display: inline-block;
+   width: 60%;
+   width: -webkit-calc(100% - 120px);
+   width: -moz-calc(100% - 120px);
+   width: calc(100% - 120px);
+}
+
+.frontStory {
+   margin-bottom: 3rem;
+}
+
+.frontStory,
+.storyDetail {
+   margin-left: 20px;
+}
+
+.frontStory h2 {
+   margin: 16px 0 0 0;
+   line-height: 1.2em;
+}
+
+.frontStory .teaser p {
+   margin: 4px 0 0 0;
+   line-height: 1.4rem;
+}
+
+.storyDetail {
+   min-height: 280px;
+}
+
+a .teaser {
+   color: #000;
+}
+
+.buttonArea {
+   padding-top: 15px;
+}
+
+.buttonArea a {
+   display: block;
+   margin-bottom: 16px;
+   color: #000;
+}
+
+.buttonArea a.button {
+   color: #fff;
 }

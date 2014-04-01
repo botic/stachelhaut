@@ -36,26 +36,31 @@ app.get("/add", function (req) {
 app.post("/add", function (req) {
    var credentials = appengine.getCredentials(req);
    if (credentials.isLoggedIn) {
-         req.validatePost("title").minLength(3, "Please specify a title!").maxLength(500, "Title is too long! Limit is 500 characters.");
-         req.validatePost("text").maxLength(100000, "Text is too long! Limit is 100.000 characters.");
-         req.validatePost("posted").matches(dateRegex, "Invalid date!");
+      req.validate("title").isDefined("Title is missing!").minLength(3, "Please specify a title!").maxLength(500, "Title is too long! Limit is 500 characters.");
+      req.validate("teaser").isDefined("Teaser missing!").maxLength(100000, "Teaser is too long! Limit is 100.000 characters.");
+      req.validate("text").isDefined("Text missing!").maxLength(100000, "Text is too long! Limit is 100.000 characters.");
+      req.validate("posted").isDefined("Date missing!").matches(dateRegex, "Invalid date!");
 
-         if (req.isValid()) {
-            var datastore = DatastoreServiceFactory.getDatastoreService();
-            var story = new Entity("Story");
-            story.setProperty("title", req.postParams.title);
-            story.setProperty("titleLowerCase", req.postParams.title.toLowerCase());
-            story.setUnindexedProperty("text", new Text(req.postParams.text));
-            story.setProperty("posted", dateFormat.parse(req.postParams.posted));
-            story.setProperty("created", new java.util.Date());
-            story.setProperty("creator", credentials.currentUser);
-            datastore.put(story);
+      if (!req.hasErrors()) {
+         var datastore = DatastoreServiceFactory.getDatastoreService();
+         var story = new Entity("Story");
+         story.setProperty("title", req.postParams.title);
+         story.setProperty("titleLowerCase", req.postParams.title.toLowerCase());
+         story.setUnindexedProperty("teaser", new Text(req.postParams.teaser.replace(/(\r\n|\n|\r)/gm," ")));
+         story.setUnindexedProperty("text", new Text(req.postParams.text));
+         story.setProperty("posted", dateFormat.parse(req.postParams.posted));
+         story.setProperty("created", new java.util.Date());
+         story.setProperty("creator", credentials.currentUser);
+         story.setProperty("deleted", false);
+         datastore.put(story);
 
-            return response.redirect("/stories/" + story.getKey().getId());
-         }
+         return response.redirect("/stories/" + story.getKey().getId());
+      } else {
+         return response.bad().html("Error in request!<hr>" + req.errorMessages().join("<br>"));
+      }
    }
 
-   return response.redirect(credentials.loginURI);
+   return response.redirect("/admin");
 });
 
 app.get("/:id", function(req, id) {
@@ -74,6 +79,11 @@ app.get("/:id", function(req, id) {
    }
 
    var story = appengine.mapProperties(storyEntity);
+
+   if (story.deleted) {
+      return response.notFound().html("<h1>Story not found</h1>");
+   }
+
    var credentials = appengine.getCredentials(req);
    if (credentials.isLoggedIn) {
       return response.html(env.getTemplate("story.html").render({
@@ -105,15 +115,21 @@ app.get("/:id/edit", function(req, id) {
    }
 
    var story = appengine.mapProperties(storyEntity);
+
+   if (story.deleted) {
+      return response.notFound().html("<h1>Story not found</h1>");
+   }
+
    var credentials = appengine.getCredentials(req);
    if (credentials.isLoggedIn) {
       return response.html(env.getTemplate("story-edit.html").render({
          title: story.title + " - Wohnprojekt Seestern Aspern",
          user: credentials.currentUser,
+         isAdmin: credentials.isAdmin,
          story: story
       }));
    } else {
-      return response.redirect("/stories/:id");
+      return response.redirect("/stories/" + id);
    }
 });
 
@@ -124,11 +140,12 @@ app.post("/:id/edit", function (req, id) {
 
    var credentials = appengine.getCredentials(req);
    if (credentials.isLoggedIn) {
-      req.validatePost("title").minLength(3, "Please specify a title!").maxLength(500, "Title is too long! Limit is 500 characters.");
-      req.validatePost("text").maxLength(100000, "Text is too long! Limit is 100.000 characters.");
-      req.validatePost("posted").matches(dateRegex, "Invalid date!");
+      req.validate("title").isDefined("Title is missing!").minLength(3, "Please specify a title!").maxLength(500, "Title is too long! Limit is 500 characters.");
+      req.validate("teaser").isDefined("Teaser missing!").maxLength(100000, "Teaser is too long! Limit is 100.000 characters.");
+      req.validate("text").isDefined("Text missing!").maxLength(100000, "Text is too long! Limit is 100.000 characters.");
+      req.validate("posted").isDefined("Date missing!").matches(dateRegex, "Invalid date!");
 
-      if (req.isValid()) {
+      if (!req.hasErrors()) {
          var datastore = DatastoreServiceFactory.getDatastoreService();
          var storyEntity;
          try {
@@ -138,15 +155,81 @@ app.post("/:id/edit", function (req, id) {
          } catch (e) {
             return response.error().html("<h1>Internal error</h1>");
          }
+
+         if (storyEntity.getProperty("deleted")) {
+            return response.notFound().html("<h1>Story not found</h1>");
+         }
+
          storyEntity.setProperty("title", req.postParams.title);
          storyEntity.setProperty("titleLowerCase", req.postParams.title.toLowerCase());
+         storyEntity.setUnindexedProperty("teaser", new Text(req.postParams.teaser.replace(/(\r\n|\n|\r)/gm," ")));
          storyEntity.setUnindexedProperty("text", new Text(req.postParams.text));
          storyEntity.setProperty("posted", dateFormat.parse(req.postParams.posted));
          datastore.put(storyEntity);
 
          return response.redirect("/stories/" + storyEntity.getKey().getId());
+      } else {
+         return response.bad().html("Error in request!<hr>" + req.errorMessages().join("<br>"));
       }
    }
 
-   return response.redirect(credentials.loginURI);
+   return response.redirect("/admin");
+});
+
+app.get("/:id/delete", function(req, id) {
+   if (!appengine.isValidId(id)) {
+      return response.forbidden().html("<h1>Forbidden</h1>");
+   }
+
+   var datastore = DatastoreServiceFactory.getDatastoreService();
+   var storyEntity;
+   try {
+      storyEntity = datastore.get(KeyFactory.createKey("Story", java.lang.Long.parseLong(id)));
+   } catch(e if e.javaException instanceof EntityNotFoundException) {
+      return response.notFound().html("<h1>Story not found</h1>");
+   } catch (e) {
+      return response.error().html("<h1>Internal error</h1>");
+   }
+
+   if (storyEntity.getProperty("deleted")) {
+      return response.notFound().html("<h1>Story not found</h1>");
+   }
+
+   var story = appengine.mapProperties(storyEntity);
+   var credentials = appengine.getCredentials(req);
+   if (credentials.isLoggedIn && credentials.isAdmin) {
+      return response.html(env.getTemplate("story-delete.html").render({
+         title: story.title + " - Wohnprojekt Seestern Aspern",
+         user: credentials.currentUser,
+         isAdmin: credentials.isAdmin,
+         story: story
+      }));
+   } else {
+      return response.redirect("/stories/" + id);
+   }
+});
+
+app.post("/:id/delete", function(req, id) {
+   if (!appengine.isValidId(id)) {
+      return response.forbidden().html("<h1>Forbidden</h1>");
+   }
+
+   var datastore = DatastoreServiceFactory.getDatastoreService();
+   var storyEntity;
+   try {
+      storyEntity = datastore.get(KeyFactory.createKey("Story", java.lang.Long.parseLong(id)));
+   } catch(e if e.javaException instanceof EntityNotFoundException) {
+      return response.notFound().html("<h1>Story not found</h1>");
+   } catch (e) {
+      return response.error().html("<h1>Internal error</h1>");
+   }
+
+   if (storyEntity.getProperty("deleted")) {
+      return response.notFound().html("<h1>Story not found</h1>");
+   } else {
+      storyEntity.setProperty("deleted", true);
+      datastore.put(storyEntity);
+   }
+
+   return response.redirect("/admin");
 });

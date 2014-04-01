@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block main %}
+<form method="POST" action="/stories/{{ story.id }}/delete" id="delete-story-form">
+
+   <div class="row">
+      <div class="large-8 large-offset-2 columns">
+         <h1>{{ story.title }}</h1>
+         <p><strong>Do you really want to delete this story?</strong></p>
+         <dl>
+            <dt>Creator:
+            <dd>{{ story.creator }}
+            <dt>Created:
+            <dd>{{ story.created | date:'dd-MM-yyyy' }}
+            <dt>Posted:
+            <dd>{{ story.posted | date:'dd-MM-yyyy' }}
+            <dt>Teaser:
+            <dd>{{ story.teaser | markdown }}
+         </dl>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="large-8 large-offset-2 columns">
+         {% if isAdmin %}
+         <a href="/stories/{{ story.id }}/edit" class="button success radius">
+            Keep
+         </a>
+
+         <input type="submit" value="Delete" class="button alert radius" style="float: right;">
+         {% endif %}
+      </div>
+   </div>
+
+</form>
+{% endblock %}

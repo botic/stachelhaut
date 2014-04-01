@@ -2,19 +2,30 @@
 
 {% block main %}
 
-{% if stories.length > 0 %}
+<div class="row">
 
-   {% for story in stories %}
-   <div class="row">
-      <div class="small-12 columns">
-         <a href="{{ story | href }}">
+   <div class="large-9 medium-8 columns">
+   {% if stories.length > 0 %}
+
+      {% for story in stories %}
+      <div class="frontStory">
+         <div class="dayIndicatorWrapper">
             <span class="dayIndicator">Tag<br>{{ story.posted | dateDiff }}</span>
-            <h2>{{ story.title }}</h2>
-         </a>
+         </div>
+         <div class="textWrapper">
+            <a href="{{ story | href }}">
+               <h2>{{ story.title }}</h2>
+               <div class="teaser">{{ story.teaser | markdown }}</div>
+            </a>
+         </div>
       </div>
-   </div>
-   {% endfor %}
+      {% endfor %}
 
-{% endif %}
+   {% endif %}
+   </div>
+
+   {% include "buttons.html" %}
+
+</div>
 
 {% endblock %}
