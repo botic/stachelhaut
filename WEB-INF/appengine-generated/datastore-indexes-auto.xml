@@ -1,0 +1,17 @@
+<!-- Indices written at Tue, 1 Apr 2014 22:08:54 CEST -->
+
+<datastore-indexes>
+
+    <!-- Used 1 time in query history -->
+    <datastore-index kind="Story" ancestor="false" source="auto">
+        <property name="deleted" direction="asc"/>
+        <property name="posted" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 1 time in query history -->
+    <datastore-index kind="Story" ancestor="false" source="auto">
+        <property name="deleted" direction="asc"/>
+        <property name="titleLowerCase" direction="asc"/>
+    </datastore-index>
+
+</datastore-indexes>
