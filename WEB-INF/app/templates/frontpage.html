@@ -10,7 +10,7 @@
       {% for story in stories %}
       <div class="frontStory">
          <div class="dayIndicatorWrapper">
-            <span class="dayIndicator">Tag<br>{{ story.posted | dateDiff }}</span>
+            <span class="dayIndicator">Tag <br> {{ story.posted | dateDiff }}</span>
          </div>
          <div class="textWrapper">
             <a href="{{ story | href }}">

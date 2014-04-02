@@ -5,11 +5,24 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
    <title>{{ title }}</title>
+   <script type="text/javascript">
+   WebFontConfig = {
+    google: { families: [ 'Kotta+One::latin,latin-ext' ] }
+   };
+   (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+   })();</script>
 
    <link rel="stylesheet" href="/static/vendor/normalize.css" />
    <link rel="stylesheet" href="/static/vendor/foundation.min.css" />
    <link rel="stylesheet" href="/static/vendor/foundation-datepicker.css" />
-   <link href="http://fonts.googleapis.com/css?family=Kotta+One&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css">
+
    <link rel="stylesheet" href="/static/stachelhaut.css" />
    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
 
@@ -23,7 +36,7 @@
 
    <header>
       <div class="row">
-         <div class="medium-12 columns">
+         <div class="large-12 columns">
             <a href="/"><h1>Seestern-Bautagebuch</h1></a>
          </div>
       </div>

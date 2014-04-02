@@ -123,3 +123,105 @@ a .teaser {
 .buttonArea a.button {
    color: #fff;
 }
+
+
+@media only screen and (max-width: 64em) {
+   footer,
+   .row {
+      border: 0 !important;
+      border-radius: 0 !important;
+   }
+
+   body {
+      padding-bottom: 0 !important;
+   }
+}
+
+@media only screen and (max-width: 40em) {
+   header h1 {
+      max-width: 320px;
+      padding: 0.25rem 0 0.5rem 3.75rem;
+      margin-left: 0px;
+      font-size: 2rem;
+      line-height: 2.125rem;
+      background: url('seestern-logo-transparent.png') 0rem 0.75rem no-repeat;
+      background-size: 3rem 3rem;
+   }
+
+   .dayIndicator {
+      font-size: 0.75rem;
+      line-height: 0.938rem;
+      border-radius: 25% 25%;
+      height: 50px;
+      width: 50px;
+      padding-top: 10px;
+      top: 4px;
+   }
+
+   .dayIndicatorWrapper {
+      display: inline-block;
+      vertical-align: top;
+      width: 60px;
+   }
+
+   .frontStory,
+   .storyDetail {
+      margin-left: 0px;
+   }
+
+   .frontStory {
+      margin-bottom: 1.75rem;
+   }
+
+   .frontStory:last-child {
+      margin-bottom: 1.25rem;
+   }
+
+   footer p {
+      padding-top: 1.25rem;
+   }
+
+   .frontStory h2 {
+      margin-top: 0;
+   }
+
+   .textWrapper {
+      width: -moz-calc(100% - 65px);
+      width: -webkit-calc(100% - 65px);
+      width: calc(100% - 65px);
+   }
+
+   .storyDetail .dayIndicatorWrapper {
+      display: block;
+      width: 100%;
+   }
+
+   .storyDetail .textWrapper {
+      width: 100%;
+   }
+
+   .storyDetail .dayIndicator {
+      font-size: 0.75rem;
+      line-height: 0.938rem;
+      border-radius: 3px;
+      height: auto;
+      width: auto;
+      padding: 10px 0;
+      position: static;
+   }
+
+   .storyDetail .dayIndicator br {
+      display: none;
+   }
+
+   .storyDetail h1 {
+      font-size: 2rem;
+      line-height: 2.5rem;
+      margin: 15px 0 10px 0;
+   }
+
+   .buttonArea {
+      padding-bottom: 0;
+   }
+
+}
