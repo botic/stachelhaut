@@ -126,6 +126,10 @@ a .teaser {
 
 
 @media only screen and (max-width: 64em) {
+   body {
+      background: #fff;
+   }
+
    footer,
    .row {
       border: 0 !important;
@@ -140,7 +144,7 @@ a .teaser {
 @media only screen and (max-width: 40em) {
    header h1 {
       max-width: 320px;
-      padding: 0.25rem 0 0.5rem 3.75rem;
+      padding: 0.25rem 0 1.25rem 3.75rem;
       margin-left: 0px;
       font-size: 2rem;
       line-height: 2.125rem;
