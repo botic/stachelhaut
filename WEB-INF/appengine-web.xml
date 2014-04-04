@@ -13,6 +13,7 @@
 
    <static-files>
       <include path="/static/**" expiration="365d" />
+      <include path="/favicon.ico" expiration="365d" />
       <exclude path="/tests/*" />
       <exclude path="/build.xml" />
       <exclude path="/README.md" />
