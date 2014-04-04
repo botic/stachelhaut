@@ -8,8 +8,7 @@ var appengine = require("./appengine");
 var {Application} = require("stick");
 var app = exports.app = Application();
 
-app.configure("params", "static", "mount", "route");
-app.static(module.resolve("./static"), "index.html", "/static");
+app.configure("params", "mount", "route");
 
 var response = require("ringo/jsgi/response");
 
