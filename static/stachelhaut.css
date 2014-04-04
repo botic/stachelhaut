@@ -45,6 +45,14 @@ footer abbr {
 
 .textEditor {
    height: 300px;
+   font-family: monospace;
+}
+
+.textMarkdownHelp {
+   margin: -1rem 0 1rem 0;
+   font-size: 0.875rem;
+   color: #4D4D4D;
+   text-align: right;
 }
 
 .dayIndicator {

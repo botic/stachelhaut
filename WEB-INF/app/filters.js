@@ -15,7 +15,7 @@ exports.href = function(entity) {
 };
 
 exports.dateDiff = function(date) {
-   var start = new Date(2014, 2, 18);
+   var start = new Date(2014, 2, 20);
 
    if (date !== "INVALID" && dates.before(start, date)) {
       return dates.diff(start, date);
