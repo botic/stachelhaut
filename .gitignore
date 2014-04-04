@@ -11,3 +11,5 @@ WEB-INF/appengine-generated/local_db.bin
 *.sublime-project
 
 *.sublime-workspace
+
+WEB-INF/appengine-generated/datastore-indexes-auto.xml

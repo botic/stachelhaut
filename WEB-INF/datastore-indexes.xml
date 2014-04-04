@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<datastore-indexes autoGenerate="false">
+
+    <datastore-index kind="Story" ancestor="false" source="auto">
+        <property name="deleted" direction="asc"/>
+        <property name="posted" direction="desc"/>
+    </datastore-index>
+
+    <datastore-index kind="Story" ancestor="false" source="auto">
+        <property name="deleted" direction="asc"/>
+        <property name="titleLowerCase" direction="asc"/>
+    </datastore-index>
+
+</datastore-indexes>
