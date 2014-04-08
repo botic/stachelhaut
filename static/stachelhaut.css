@@ -11,6 +11,10 @@ h1, h2, h3, h4, h5, h6 {
    font-family: 'Kotta One', serif;
 }
 
+a:hover h2 {
+   text-decoration: underline;
+}
+
 .row {
    background: #fff;
    border-left: 1px solid #ccc;
@@ -23,6 +27,15 @@ header h1 {
    font-size: 3rem;
    background: url('seestern-logo-transparent.png') 0rem 0.75rem no-repeat;
    background-size: 9rem 9rem;
+}
+
+header h1 a {
+   color: #000;
+}
+
+header h1 a:hover {
+   color: #000;
+   text-decoration: underline;
 }
 
 footer {
@@ -126,6 +139,10 @@ a .teaser {
    display: block;
    margin-bottom: 16px;
    color: #000;
+}
+
+.buttonArea a:hover span {
+   text-decoration: underline;
 }
 
 .buttonArea a.button {
