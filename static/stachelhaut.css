@@ -127,8 +127,16 @@ footer abbr {
    min-height: 280px;
 }
 
+.teaser img {
+   display: block;
+}
+
 a .teaser {
    color: #000;
+}
+
+.teaser img {
+   margin: 16px 0 0 0;
 }
 
 .buttonArea {
@@ -212,6 +220,12 @@ a .teaser {
 
    .frontStory h2 {
       margin-top: 0;
+      font-size: 1.5rem;
+   }
+
+   .frontStory .teaser p {
+      font-size: 0.875rem;
+      line-height: 1.25rem;
    }
 
    .textWrapper {
