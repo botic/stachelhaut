@@ -44,7 +44,7 @@ app.get("/admin", function (req) {
       // Read out all existing stories
       var datastore = DatastoreServiceFactory.getDatastoreService();
       var stories = appengine.mapEntityList(
-         datastore.prepare((new Query("Story")).addFilter("deleted", Query.FilterOperator.EQUAL, false).addSort("titleLowerCase", Query.SortDirection.ASCENDING))
+         datastore.prepare((new Query("Story")).addFilter("deleted", Query.FilterOperator.EQUAL, false).addSort("posted", Query.SortDirection.DESCENDING))
          .asList(FetchOptions.Builder.withDefaults())
       );
 
