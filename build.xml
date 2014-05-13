@@ -24,7 +24,7 @@
          dest="WEB-INF/lib/ringo-core.jar"
       />
       <get
-         src="http://repo1.maven.org/maven2/com/google/appengine/appengine-api-1.0-sdk/1.8.9/appengine-api-1.0-sdk-1.8.9.jar"
+         src="http://repo1.maven.org/maven2/com/google/appengine/appengine-api-1.0-sdk/1.9.4/appengine-api-1.0-sdk-1.9.4.jar"
          verbose="true"
          dest="WEB-INF/lib"
       />
