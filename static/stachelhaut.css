@@ -113,6 +113,7 @@ footer abbr {
    margin-left: 20px;
 }
 
+.storyDetail h2,
 .frontStory h2 {
    margin: 16px 0 0 0;
    line-height: 1.2em;
@@ -120,7 +121,6 @@ footer abbr {
 
 .frontStory .teaser p {
    margin: 4px 0 0 0;
-   line-height: 1.4rem;
 }
 
 .storyDetail {
