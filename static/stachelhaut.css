@@ -139,6 +139,10 @@ a .teaser {
    margin: 16px 0 0 0;
 }
 
+.nextCursor {
+   margin-left: 115px;
+}
+
 .buttonArea {
    padding-top: 15px;
 }
@@ -261,6 +265,10 @@ a .teaser {
       font-size: 2rem;
       line-height: 2.5rem;
       margin: 15px 0 10px 0;
+   }
+
+   .nextCursor {
+      margin: 40px 0;
    }
 
    .buttonArea {

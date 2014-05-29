@@ -25,15 +25,26 @@ app.get("/", function (req) {
 
    // Read out all existing stories
    var datastore = DatastoreServiceFactory.getDatastoreService();
-   var stories = appengine.mapEntityList(
-      datastore.prepare((new Query("Story")).addFilter("deleted", Query.FilterOperator.EQUAL, false).addSort("posted", Query.SortDirection.DESCENDING))
-      .asList(FetchOptions.Builder.withLimit(10))
-   );
+   var fetchOptions = FetchOptions.Builder.withLimit(5);
+
+   var startCursor = req.queryParams["cursor"];
+   if (startCursor != null) {
+      fetchOptions.startCursor(Cursor.fromWebSafeString(startCursor));
+   }
+
+   var results = datastore.prepare(
+      new Query("Story")
+         .addFilter("deleted", Query.FilterOperator.EQUAL, false)
+         .addSort("posted", Query.SortDirection.DESCENDING)
+   ).asQueryResultList(fetchOptions);
+
+   var stories = appengine.mapEntityList(results);
 
    return response.html(env.getTemplate("frontpage.html").render({
       title: "Bautagebuch - Wohnprojekt Seestern Aspern",
       stories: stories,
       user: credentials.currentUser,
+      nextCursor: results.getCursor().toWebSafeString()
    }));
 });
 
@@ -44,7 +55,11 @@ app.get("/admin", function (req) {
       // Read out all existing stories
       var datastore = DatastoreServiceFactory.getDatastoreService();
       var stories = appengine.mapEntityList(
-         datastore.prepare((new Query("Story")).addFilter("deleted", Query.FilterOperator.EQUAL, false).addSort("posted", Query.SortDirection.DESCENDING))
+         datastore.prepare(
+            new Query("Story")
+            .addFilter("deleted", Query.FilterOperator.EQUAL, false)
+            .addSort("posted", Query.SortDirection.DESCENDING)
+         )
          .asList(FetchOptions.Builder.withDefaults())
       );
 

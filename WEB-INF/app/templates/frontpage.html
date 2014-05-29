@@ -21,6 +21,17 @@
       </div>
       {% endfor %}
 
+      {% if nextCursor != "" %}
+      <div class="nextCursor">
+         <a href=".?cursor={{ nextCursor }}">Weiter</a>
+      </div>
+      {% endif %}
+
+   {% else %}
+      <div class="nextCursor">
+         <h3>Keine weiteren Einträge</h3>
+         <a href="/">Zurück zur Startseite</a>
+      </div>
    {% endif %}
    </div>
 
