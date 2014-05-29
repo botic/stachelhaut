@@ -3,6 +3,8 @@ importPackage(com.google.appengine.api.images);
 importPackage(com.google.appengine.api.datastore);
 importPackage(com.google.appengine.api.blobstore);
 
+var PAGE_SIZE = 6;
+
 var appengine = require("./appengine");
 
 var {Application} = require("stick");
@@ -25,7 +27,7 @@ app.get("/", function (req) {
 
    // Read out all existing stories
    var datastore = DatastoreServiceFactory.getDatastoreService();
-   var fetchOptions = FetchOptions.Builder.withLimit(5);
+   var fetchOptions = FetchOptions.Builder.withLimit(PAGE_SIZE);
 
    var startCursor = req.queryParams["cursor"];
    if (startCursor != null) {
@@ -44,7 +46,7 @@ app.get("/", function (req) {
       title: "Bautagebuch - Wohnprojekt Seestern Aspern",
       stories: stories,
       user: credentials.currentUser,
-      nextCursor: results.getCursor().toWebSafeString()
+      nextCursor: (results.size() === PAGE_SIZE ? results.getCursor().toWebSafeString() : "")
    }));
 });
 
