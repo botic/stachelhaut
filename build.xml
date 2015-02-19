@@ -14,29 +14,25 @@
          dest="WEB-INF/lib"
       />
       <get
-         src="https://oss.sonatype.org/content/repositories/snapshots/org/mozilla/rhino/1.7R5-SNAPSHOT/rhino-1.7R5-20120629.144839-4.jar"
+         src="http://central.maven.org/maven2/org/mozilla/rhino/1.7R5/rhino-1.7R5.jar"
          verbose="true"
-         dest="WEB-INF/lib/rhino-1.7R5-SNAPSHOT.jar"
+         dest="WEB-INF/lib/rhino-1.7R5.jar"
       />
       <get
-         src="https://oss.sonatype.org/service/local/repositories/snapshots/content/org/ringojs/ringojs/0.10.1-SNAPSHOT/ringojs-0.10.1-20131220.124404-1.jar"
+         src="http://hoffburg.at/dependencies/ringo-master/ringo-core.jar"
          verbose="true"
          dest="WEB-INF/lib/ringo-core.jar"
       />
       <get
-         src="http://repo1.maven.org/maven2/com/google/appengine/appengine-api-1.0-sdk/1.9.5/appengine-api-1.0-sdk-1.9.5.jar"
+         src="http://hoffburg.at/dependencies/ringo-master/ringo-modules.jar"
+         verbose="true"
+         dest="WEB-INF/lib/ringo-modules.jar"
+      />
+      <get
+         src="http://repo1.maven.org/maven2/com/google/appengine/appengine-api-1.0-sdk/1.9.17/appengine-api-1.0-sdk-1.9.17.jar"
          verbose="true"
          dest="WEB-INF/lib"
       />
-
-      <!-- Download ringo modules -->
-      <get
-         src="http://hoffburg.at/dependencies/ringojs-0.10-modules.zip"
-         verbose="true"
-         dest="WEB-INF/modules.zip"
-      />
-      <unzip src="WEB-INF/modules.zip" dest="WEB-INF/modules"/>
-      <delete file="WEB-INF/modules.zip"/>
 
       <!-- Download packages -->
       <mkdir dir="WEB-INF/packages" />

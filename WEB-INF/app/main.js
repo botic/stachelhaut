@@ -77,3 +77,7 @@ app.get("/admin", function (req) {
    return response.redirect(credentials.loginURI);
 });
 
+app.get("/version", function (req) {
+   var engine = require("ringo/engine");
+   return response.text("Running on Ringo " + engine.version.join("."));
+});
