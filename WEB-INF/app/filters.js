@@ -1,4 +1,4 @@
-var {process} = require("ringo/markdown");
+var {process} = require("commonmark");
 var {markSafe} = require("reinhardt/utils");
 var dates = require("ringo/utils/dates");
 

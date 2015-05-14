@@ -7,7 +7,7 @@ var PAGE_SIZE = 6;
 
 var appengine = require("./appengine");
 
-var {process} = require("ringo/markdown");
+var {process} = require("commonmark");
 
 var {Application} = require("stick");
 var app = exports.app = Application();
@@ -17,8 +17,8 @@ app.configure("params", "mount", "route");
 var response = require("ringo/jsgi/response");
 var filters = require("./filters");
 
-var {Environment} = require("reinhardt");
-var env = new Environment({
+var {Reinhardt} = require("reinhardt");
+var env = new Reinhardt({
    loader: module.resolve("WEB-INF/app/templates"),
    filters: filters
 });

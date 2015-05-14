@@ -11,8 +11,8 @@ var app = exports.app = Application();
 app.configure("params", module.resolve("./stick-middleware/validation"), "route");
 
 var response = require("ringo/jsgi/response");
-var {Environment} = require("reinhardt");
-var env = new Environment({
+var {Reinhardt} = require("reinhardt");
+var env = new Reinhardt({
    loader: module.resolve("WEB-INF/app/templates"),
    filters: require("./filters")
 });

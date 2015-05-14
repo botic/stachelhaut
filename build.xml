@@ -46,10 +46,18 @@
          verbose="true"
          dest="WEB-INF/packages/reinhardt.zip"
       />
+      <get
+         src="http://packages.ringojs.org/download/commonmark/latest"
+         verbose="true"
+         dest="WEB-INF/packages/commonmark.zip"
+      />
+
       <unzip src="WEB-INF/packages/stick.zip" dest="WEB-INF/packages/stick"/>
       <unzip src="WEB-INF/packages/reinhardt.zip" dest="WEB-INF/packages/reinhardt"/>
+      <unzip src="WEB-INF/packages/commonmark.zip" dest="WEB-INF/packages/commonmark"/>
       <delete file="WEB-INF/packages/stick.zip"/>
       <delete file="WEB-INF/packages/reinhardt.zip"/>
+      <delete file="WEB-INF/packages/commonmark.zip"/>
 
    </target>
 
