@@ -7,17 +7,20 @@ var PAGE_SIZE = 6;
 
 var appengine = require("./appengine");
 
+var {process} = require("ringo/markdown");
+
 var {Application} = require("stick");
 var app = exports.app = Application();
 
 app.configure("params", "mount", "route");
 
 var response = require("ringo/jsgi/response");
+var filters = require("./filters");
 
 var {Environment} = require("reinhardt");
 var env = new Environment({
    loader: module.resolve("WEB-INF/app/templates"),
-   filters: require("./filters")
+   filters: filters
 });
 
 app.mount("/stories", module.resolve("./stories"));
@@ -48,6 +51,50 @@ app.get("/", function (req) {
       user: credentials.currentUser,
       nextCursor: (results.size() === PAGE_SIZE ? results.getCursor().toWebSafeString() : "")
    }));
+});
+
+app.get("/latest.json", function (req) {
+   // Read out all existing stories
+   var datastore = DatastoreServiceFactory.getDatastoreService();
+   var fetchOptions = FetchOptions.Builder.withLimit(2);
+
+   var results = datastore.prepare(
+      new Query("Story")
+         .addFilter("deleted", Query.FilterOperator.EQUAL, false)
+         .addSort("posted", Query.SortDirection.DESCENDING)
+   ).asQueryResultList(fetchOptions);
+
+   var stories = appengine.mapEntityList(results);
+
+   var story = stories[0];
+
+   if (story == null) {
+      return repsonse.setStatus(404).json({});
+   }
+
+   var obj = [];
+   obj.push({
+      title: story.title,
+      teaser: process(story.teaser),
+      text: process(story.text),
+      day: filters.dateDiff(story.posted),
+      href: "http://bautagebuch.seestern-aspern.at/stories/" + story.id
+   });
+
+   story = stories[1];
+   if (story != null) {
+      obj.push({
+         title: story.title,
+         teaser: process(story.teaser),
+         text: process(story.text),
+         day: filters.dateDiff(story.posted),
+         href: "http://bautagebuch.seestern-aspern.at/stories/" + story.id
+      });
+   }
+
+   return response.addHeaders({
+         "Access-Control-Allow-Origin": "*"
+      }).json(obj);
 });
 
 app.get("/admin", function (req) {
