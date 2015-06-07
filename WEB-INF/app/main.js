@@ -126,5 +126,14 @@ app.get("/admin", function (req) {
 
 app.get("/version", function (req) {
    var engine = require("ringo/engine");
-   return response.text("Running on Ringo " + engine.version.join("."));
+
+   var properties = java.lang.System.getProperties();
+   var keys = properties.keys();
+   var sb = new java.lang.StringBuffer(1000);
+   while (keys.hasMoreElements()) {
+      let key = keys.nextElement();
+      sb.append(key + " -> " + properties.get(key) + "\n");
+   }
+
+   return response.text("Running on Ringo " + engine.version.join(".") + "\n\n" + sb.toString());
 });

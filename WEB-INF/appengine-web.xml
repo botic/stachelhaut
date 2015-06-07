@@ -21,10 +21,10 @@
    </static-files>
 
    <automatic-scaling>
-      <min-idle-instances>1</min-idle-instances>
-      <max-idle-instances>5</max-idle-instances>
+      <min-idle-instances>automatic</min-idle-instances>
+      <max-idle-instances>automatic</max-idle-instances>
       <min-pending-latency>automatic</min-pending-latency>
-      <max-pending-latency>500ms</max-pending-latency>
+      <max-pending-latency>automatic</max-pending-latency>
    </automatic-scaling>
 
 </appengine-web-app>
