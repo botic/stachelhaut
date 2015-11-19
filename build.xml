@@ -19,12 +19,12 @@
          dest="WEB-INF/lib/rhino-1.7R5.jar"
       />
       <get
-         src="http://hoffburg.at/dependencies/ringo-master/ringo-core.jar"
+         src="http://hoffburg.at/dependencies/ringo-0.11/ringo-core.jar"
          verbose="true"
          dest="WEB-INF/lib/ringo-core.jar"
       />
       <get
-         src="http://hoffburg.at/dependencies/ringo-master/ringo-modules.jar"
+         src="http://hoffburg.at/dependencies/ringo-0.11/ringo-modules.jar"
          verbose="true"
          dest="WEB-INF/lib/ringo-modules.jar"
       />
@@ -37,12 +37,12 @@
       <!-- Download packages -->
       <mkdir dir="WEB-INF/packages" />
       <get
-         src="http://packages.ringojs.org/download/stick/latest"
+         src="http://packages.ringojs.org/download/stick/0.3.0"
          verbose="true"
          dest="WEB-INF/packages/stick.zip"
       />
       <get
-         src="http://packages.ringojs.org/download/reinhardt/latest"
+         src="http://packages.ringojs.org/download/reinhardt/0.4.0"
          verbose="true"
          dest="WEB-INF/packages/reinhardt.zip"
       />
