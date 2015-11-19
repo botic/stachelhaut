@@ -47,7 +47,7 @@
          dest="WEB-INF/packages/reinhardt.zip"
       />
       <get
-         src="http://packages.ringojs.org/download/commonmark/latest"
+         src="http://packages.ringojs.org/download/commonmark/0.18.1"
          verbose="true"
          dest="WEB-INF/packages/commonmark.zip"
       />
